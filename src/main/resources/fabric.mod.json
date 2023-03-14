@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "fabric-hud-library",
+  "version": "${version}",
+  "name": "Lucy's Fabric HUD Library",
+  "description": "",
+  "authors": ["lucyy.p"],
+  "contact": {
+    "repo": "https://github.com/lucyydotp/fabric-hud-library"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/fabric-hud-library/icon.png",
+  "environment": "client",
+  "entrypoints": {
+  },
+  "mixins": [
+    "fabric-hud-library.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.17",
+    "minecraft": "1.19.4"
+  }
+}
