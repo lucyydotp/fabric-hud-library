@@ -2,6 +2,7 @@ package net.lucypoulton.fabrichudlibrary.api;
 
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
+import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
 
 /**
@@ -22,9 +23,5 @@ public abstract class HudElement {
     }
 
 
-    public abstract void render(MatrixStack matrices, boolean hasFocus);
-
-    public void handleMouseEvent(MouseEvent event) {
-
-    }
+    public abstract void render(MatrixStack matrices, @Nullable MouseState mouseState);
 }

@@ -1,6 +1,7 @@
 package net.lucypoulton.fabrichudlibrary.impl;
 
 import net.lucypoulton.fabrichudlibrary.api.HudElement;
+import net.lucypoulton.fabrichudlibrary.api.MouseState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
@@ -12,6 +13,8 @@ public class HudRenderer extends DrawableHelper {
 
     private final MinecraftClient client;
     private final Deque<HudElement> elements = new ArrayDeque<>();
+
+    private boolean mouseClicked;
 
 
     public HudRenderer(MinecraftClient client) {
@@ -31,18 +34,31 @@ public class HudRenderer extends DrawableHelper {
         elements.remove(element);
     }
 
+    public void setMouseClicked(boolean clicked) {
+        this.mouseClicked = clicked;
+    }
+
     public void render() {
         final var windowWidth = client.getWindow().getScaledWidth();
         final var windowHeight = client.getWindow().getScaledHeight();
 
+        final var scaleFactor = (float) windowHeight / client.getWindow().getHeight();
+
         final var stack = new MatrixStack();
+        final int mouseX = (int) (client.mouse.getX() * scaleFactor);
+        final int mouseY = (int) (client.mouse.getY() * scaleFactor);
 
         for (final var element : elements) {
             final var x = absolute(element.x(), element.width(), windowWidth);
             final var y = absolute(element.y(), element.height(), windowHeight);
             stack.push();
             stack.translate(x, y, 0);
-            element.render(stack, false);
+            final var mouseState = mouseX >= x && mouseX < (x + element.width()) &&
+                    mouseY >= y && mouseY < (y + element.height()) ?
+                    new MouseState(mouseX - x, mouseY - y, mouseClicked) :
+                    null;
+
+            element.render(stack, mouseState);
             stack.pop();
         }
     }
