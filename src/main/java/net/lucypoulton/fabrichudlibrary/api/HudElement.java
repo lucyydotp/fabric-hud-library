@@ -23,5 +23,5 @@ public abstract class HudElement {
     }
 
 
-    public abstract void render(MatrixStack matrices, @Nullable MouseState mouseState);
+    public abstract void render(MatrixStack matrices, int ticks, @Nullable MouseState mouseState);
 }

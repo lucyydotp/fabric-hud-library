@@ -38,7 +38,7 @@ public class HudRenderer extends DrawableHelper {
         this.mouseClicked = clicked;
     }
 
-    public void render() {
+    public void render(int ticks) {
         final var windowWidth = client.getWindow().getScaledWidth();
         final var windowHeight = client.getWindow().getScaledHeight();
 
@@ -58,7 +58,7 @@ public class HudRenderer extends DrawableHelper {
                     new MouseState(mouseX - x, mouseY - y, mouseX, mouseY, mouseClicked) :
                     null;
 
-            element.render(stack, mouseState);
+            element.render(stack, ticks, mouseState);
             stack.pop();
         }
     }

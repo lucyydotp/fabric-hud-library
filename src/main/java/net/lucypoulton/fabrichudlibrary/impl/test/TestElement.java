@@ -50,7 +50,7 @@ public class TestElement extends HudElement {
     }
 
     @Override
-    public void render(MatrixStack matrices, MouseState mouseState) {
+    public void render(MatrixStack matrices, int ticks, MouseState mouseState) {
         renderBackground(matrices, 127);
         final var text = MinecraftClient.getInstance().textRenderer;
         DrawableHelper.drawCenteredTextWithShadow(matrices, text, getTitle(mouseState), width() / 2, 6,
