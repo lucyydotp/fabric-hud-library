@@ -14,6 +14,7 @@ public class HudRenderer extends DrawableHelper {
     private final MinecraftClient client;
     private final Deque<HudElement> elements = new ArrayDeque<>();
 
+    private int scrollDelta;
     private boolean mouseClicked;
 
 
@@ -38,6 +39,10 @@ public class HudRenderer extends DrawableHelper {
         this.mouseClicked = clicked;
     }
 
+    public void setScrollDelta(int delta) {
+        this.scrollDelta = delta;
+    }
+
     public void render(int ticks) {
         final var windowWidth = client.getWindow().getScaledWidth();
         final var windowHeight = client.getWindow().getScaledHeight();
@@ -55,11 +60,12 @@ public class HudRenderer extends DrawableHelper {
             stack.translate(x, y, 0);
             final var mouseState = mouseX >= x && mouseX < (x + element.width()) &&
                     mouseY >= y && mouseY < (y + element.height()) ?
-                    new MouseState(mouseX - x, mouseY - y, mouseX, mouseY, mouseClicked) :
+                    new MouseState(mouseX - x, mouseY - y, mouseX, mouseY, scrollDelta, mouseClicked) :
                     null;
 
             element.render(stack, ticks, mouseState);
             stack.pop();
         }
+        this.scrollDelta = 0;
     }
 }

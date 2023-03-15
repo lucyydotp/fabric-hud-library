@@ -22,4 +22,14 @@ public class MouseMixin {
     public void onClick(long window, int button, int action, int mods, CallbackInfo ci) {
         FabricHudLibraryMod.getInstance().renderer.setMouseClicked(action == GLFW.GLFW_PRESS);
     }
+
+    @Inject(method = "onMouseScroll",
+    at=@At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/client/MinecraftClient;getOverlay()Lnet/minecraft/client/gui/screen/Overlay;",
+            shift = At.Shift.AFTER
+    ))
+    public void onScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
+        FabricHudLibraryMod.getInstance().renderer.setScrollDelta((int) Math.signum(vertical));
+    }
 }

@@ -46,6 +46,10 @@ public class TestElement extends HudElement {
     private String getTitle(MouseState state) {
         if (state == null) return "Test element";
         if (state.isClicked()) return "Clicked " + state.x() + " " + state.y();
+        if (state.mouseDelta() != 0) {
+            System.out.println(state.mouseDelta());
+            return "Scroll " + state.mouseDelta();
+        }
         return "Focused " + state.x() + " " + state.y();
     }
 

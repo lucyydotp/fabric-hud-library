@@ -8,5 +8,6 @@ public record MouseState(
 
         @Range(from = 0, to = Integer.MAX_VALUE) int absoluteX,
         @Range(from = 0, to = Integer.MAX_VALUE) int absoluteY,
+        int mouseDelta,
         boolean isClicked) {
 }
