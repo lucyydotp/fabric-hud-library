@@ -55,7 +55,7 @@ public class HudRenderer extends DrawableHelper {
             stack.translate(x, y, 0);
             final var mouseState = mouseX >= x && mouseX < (x + element.width()) &&
                     mouseY >= y && mouseY < (y + element.height()) ?
-                    new MouseState(mouseX - x, mouseY - y, mouseClicked) :
+                    new MouseState(mouseX - x, mouseY - y, mouseX, mouseY, mouseClicked) :
                     null;
 
             element.render(stack, mouseState);

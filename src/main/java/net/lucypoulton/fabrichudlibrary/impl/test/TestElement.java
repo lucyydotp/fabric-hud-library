@@ -12,8 +12,11 @@ import net.minecraft.util.math.ColorHelper;
  */
 public class TestElement extends HudElement {
 
-    private final int x;
-    private final int y;
+    private int x;
+    private int y;
+
+    private int dragStartX = -1;
+    private int dragStartY = -1;
 
     public TestElement(int x, int y) {
         this.x = x;
@@ -54,5 +57,19 @@ public class TestElement extends HudElement {
                 ColorHelper.Argb.getArgb(255, 255, 255, 255));
         DrawableHelper.drawCenteredTextWithShadow(matrices, text, "X " + x() + " Y " + y(), width() / 2, 6 + text.fontHeight,
                 ColorHelper.Argb.getArgb(255, 255, 255, 255));
+        if (mouseState == null) return;
+        if (mouseState.isClicked()) {
+
+            if (dragStartX <= -1) {
+                dragStartX = mouseState.x();
+                dragStartY = mouseState.y();
+            }
+
+            y = mouseState.absoluteY() - dragStartY;
+            x = mouseState.absoluteX() - dragStartX;
+        } else {
+            dragStartY = -1;
+            dragStartX = -1;
+        }
     }
 }
