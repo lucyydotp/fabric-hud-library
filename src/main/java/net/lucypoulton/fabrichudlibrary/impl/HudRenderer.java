@@ -73,7 +73,7 @@ public class HudRenderer extends DrawableHelper {
         }
 
         if (!additionQueue.isEmpty()) {
-            elements.removeAll(additionQueue);
+            elements.addAll(additionQueue);
             additionQueue.clear();
         }
         if (removalQueue.isEmpty()) {
