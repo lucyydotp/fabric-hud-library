@@ -7,7 +7,10 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
+import java.util.List;
+
 
 public class HudRenderer extends DrawableHelper {
 
@@ -17,6 +20,8 @@ public class HudRenderer extends DrawableHelper {
     private int scrollDelta;
     private boolean mouseClicked;
 
+    private final List<HudElement> additionQueue = new ArrayList<>();
+    private final List<HudElement> removalQueue = new ArrayList<>();
 
     public HudRenderer(MinecraftClient client) {
         this.client = client;
@@ -28,11 +33,11 @@ public class HudRenderer extends DrawableHelper {
     }
 
     public void add(final HudElement element) {
-        elements.add(element);
+        additionQueue.add(element);
     }
 
     public void remove(final HudElement element) {
-        elements.remove(element);
+        removalQueue.add(element);
     }
 
     public void setMouseClicked(boolean clicked) {
@@ -65,6 +70,15 @@ public class HudRenderer extends DrawableHelper {
 
             element.render(stack, ticks, mouseState);
             stack.pop();
+        }
+
+        if (!additionQueue.isEmpty()) {
+            elements.removeAll(additionQueue);
+            additionQueue.clear();
+        }
+        if (removalQueue.isEmpty()) {
+            elements.removeAll(removalQueue);
+            removalQueue.clear();
         }
         this.scrollDelta = 0;
     }
