@@ -1,3 +1,8 @@
+# Archived
+This became [noxcrew/sheeplib](https://github.com/noxcrew/sheeplib).
+
+---
+
 # Lucy's Fabric HUD Library
  _A ridiculous attempt at adding stuff to the Minecraft HUD_
 
